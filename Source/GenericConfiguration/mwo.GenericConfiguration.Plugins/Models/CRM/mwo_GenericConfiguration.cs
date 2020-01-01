@@ -417,7 +417,7 @@ namespace mwo.GenericConfiguration.Plugins.Models.CRM
 		/// Status of the Generic Configuration
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("statecode")]
-		public System.Nullable<CrmEarlyBound.mwo_GenericConfigurationState> StateCode
+		public System.Nullable<mwo_GenericConfigurationState> StateCode
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
@@ -425,7 +425,7 @@ namespace mwo.GenericConfiguration.Plugins.Models.CRM
 				Microsoft.Xrm.Sdk.OptionSetValue optionSet = this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("statecode");
 				if ((optionSet != null))
 				{
-					return ((CrmEarlyBound.mwo_GenericConfigurationState)(System.Enum.ToObject(typeof(CrmEarlyBound.mwo_GenericConfigurationState), optionSet.Value)));
+					return ((mwo_GenericConfigurationState)(System.Enum.ToObject(typeof(mwo_GenericConfigurationState), optionSet.Value)));
 				}
 				else
 				{

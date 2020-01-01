@@ -32,12 +32,12 @@ namespace mwo.GenericConfiguration.Plugins.Models.CRM
 		/// <summary>
 		/// Gets a binding to the set of all <see cref="CrmEarlyBound.mwo_GenericConfiguration"/> entities.
 		/// </summary>
-		public System.Linq.IQueryable<CrmEarlyBound.mwo_GenericConfiguration> mwo_GenericConfigurationSet
+		public System.Linq.IQueryable<mwo_GenericConfiguration> mwo_GenericConfigurationSet
 		{
 			[System.Diagnostics.DebuggerNonUserCode()]
 			get
 			{
-				return this.CreateQuery<CrmEarlyBound.mwo_GenericConfiguration>();
+				return this.CreateQuery<mwo_GenericConfiguration>();
 			}
 		}
 	}

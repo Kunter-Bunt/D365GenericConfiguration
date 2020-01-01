@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="CrmPluginRegistrationAttribute.cs" />
     <Compile Include="EntryPoints\PreCreateGenericConfiguration.cs" />
+    <Compile Include="Executables\GenericConfigurationValidator.cs" />
+    <Compile Include="Executables\ICRMExecutable.cs" />
     <Compile Include="Models\CRM\CrmServiceContext.cs" />
     <Compile Include="Models\CRM\mwo_GenericConfiguration.cs" />
     <Compile Include="Models\CRM\OptionSets.cs" />
@@ -78,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
-    <Folder Include="Executables\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\coretools\CrmSvcUtil.exe" />
