@@ -21,6 +21,7 @@ namespace mwo.GenericConfiguration.Plugins.Executables
         /// <param name="preImage"></param>
         public void Execute(CrmServiceContext ctx, ITracingService trace, mwo_GenericConfiguration target, mwo_GenericConfiguration preImage = null)
         {
+            if (target == null) throw new InvalidPluginExecutionException(nameof(target) + Errors.NullError);
             var subject = CombineNeededTargetAndPreImageFields(target, preImage);
             trace?.Trace($"{mwo_GenericConfiguration.Fields.mwo_Value}: {subject.mwo_Value}");
             trace?.Trace($"{mwo_GenericConfiguration.Fields.mwo_Type}: {subject.mwo_TypeEnum?.ToString()}");
@@ -64,7 +65,10 @@ namespace mwo.GenericConfiguration.Plugins.Executables
         {
             try
             {
-                new XmlDocument().LoadXml(subject.mwo_Value);
+                XmlDocument doc = new XmlDocument() { XmlResolver = null };
+                System.IO.StringReader sreader = new System.IO.StringReader(subject.mwo_Value);
+                using (XmlReader reader = XmlReader.Create(sreader, new XmlReaderSettings() { XmlResolver = null }))
+                    doc.Load(reader);
             }
             catch (XmlException ex)
             {
@@ -84,7 +88,7 @@ namespace mwo.GenericConfiguration.Plugins.Executables
 
         private void CheckValidList(mwo_GenericConfiguration subject, string delimiter)
         {
-            if (subject.mwo_Value?.EndsWith(delimiter) == true) 
+            if (subject.mwo_Value?.EndsWith(delimiter, StringComparison.Ordinal) == true) 
                 ThrowValidationException($"List type configuration should not end with \"{delimiter}\".");
         }
 
@@ -94,7 +98,7 @@ namespace mwo.GenericConfiguration.Plugins.Executables
                 ThrowValidationException($"Boolean type configuraton values must either be {bool.TrueString} or {bool.FalseString}.");
         }
 
-        private void ThrowValidationException(string msg)
+        private static void ThrowValidationException(string msg)
         {
             string prefix = "Validation Error occured:\n";
             string helptext = "\nConsider fixing the Value or, if the Value is correct, change the Type to \"Unspecified\".";

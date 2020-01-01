@@ -23,10 +23,10 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints
         /// <param name="serviceProvider"></param>
         public void Execute(IServiceProvider serviceProvider)
         {
+            if (serviceProvider == null) throw new InvalidPluginExecutionException(nameof(serviceProvider) + Errors.NullError);
             IPluginExecutionContext pluginExecutionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             IOrganizationServiceFactory factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             ITracingService tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-            CrmServiceContext crmUserContext = new CrmServiceContext(factory.CreateOrganizationService(pluginExecutionContext.UserId));
 
             mwo_GenericConfiguration target;
             if (pluginExecutionContext.InputParameters.ContainsKey("Target")
@@ -43,7 +43,8 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints
                 && (pluginExecutionContext.PreEntityImages["Default"] is mwo_GenericConfiguration))
                 preImage = pluginExecutionContext.PreEntityImages["Default"] as mwo_GenericConfiguration;
 
-            new GenericConfigurationValidator().Execute(crmUserContext, tracingService, target, preImage);
+            using (CrmServiceContext crmUserContext = new CrmServiceContext(factory.CreateOrganizationService(pluginExecutionContext.UserId)))
+                new GenericConfigurationValidator().Execute(crmUserContext, tracingService, target, preImage);
         }
     }
 }
