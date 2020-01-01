@@ -6,7 +6,7 @@ using mwo.GenericConfiguration.Plugins.Models.CRM;
 
 namespace mwo.GenericConfiguration.Plugins.EntryPoints
 {
-	[CrmPluginRegistration("mwo.GenericConfiguration.Plugins.EntryPoints.GenericConfiguationValueByKey", "GetGenericConfiguationValueByKey", 
+	[CrmPluginRegistration("mwo.GenericConfiguration.Plugins.EntryPoints.GenericConfiguationValueByKey", "1098ea41-b3a9-463a-8519-9f176dee6d39", 
 		"Retrieve a Configuration by its Key.", "mwo.GenericConfiguration", IsolationModeEnum.Sandbox)]
 	public class GenericConfiguationValueByKey : CodeActivity
 	{
