@@ -57,7 +57,7 @@ namespace mwo.GenericConfiguration.Plugins.Executables
             }
             catch (ArgumentException ex)
             {
-                ThrowValidationException($"Json type configuration must be valid Json. Error: {ex.Message}");
+                ThrowValidationException($"Json type configuration must be valid Json. \nError: {ex.Message}");
             }
         }
 
@@ -72,11 +72,11 @@ namespace mwo.GenericConfiguration.Plugins.Executables
             }
             catch (XmlException ex)
             {
-                ThrowValidationException($"Xml type configuration must be valid Xml. Error: {ex.Message}");
+                ThrowValidationException($"Xml type configuration must be valid Xml. \nError: {ex.Message}");
             }
             catch (ArgumentNullException ex)
             {
-                ThrowValidationException($"Xml type configuration must be valid Xml. Error: {ex.Message}");
+                ThrowValidationException($"Xml type configuration must be valid Xml. \nError: {ex.Message}");
             }
         }
 
@@ -101,7 +101,7 @@ namespace mwo.GenericConfiguration.Plugins.Executables
         private static void ThrowValidationException(string msg)
         {
             string prefix = "Validation Error occured:\n";
-            string helptext = "\nConsider fixing the Value or, if the Value is correct, change the Type to \"Unspecified\".";
+            string helptext = "\nConsider fixing the Value or, if the Value is correct, change the Type to \"Unspecified\" to skip validation.";
             throw new InvalidPluginExecutionException(prefix + msg + helptext);
         }
 

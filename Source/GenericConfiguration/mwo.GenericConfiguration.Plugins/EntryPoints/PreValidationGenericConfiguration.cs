@@ -30,8 +30,8 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints
 
             mwo_GenericConfiguration target;
             if (pluginExecutionContext.InputParameters.ContainsKey("Target")
-                && (pluginExecutionContext.InputParameters["Target"] is mwo_GenericConfiguration))
-                target = pluginExecutionContext.InputParameters["Target"] as mwo_GenericConfiguration;
+                && (pluginExecutionContext.InputParameters["Target"] is Entity))
+                target = ((Entity)pluginExecutionContext.InputParameters["Target"]).ToEntity<mwo_GenericConfiguration>();
             else
             {
                 tracingService.Trace("Context did not have a mwo_GenericConfiguration as Target, aborting.");
@@ -40,8 +40,8 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints
 
             mwo_GenericConfiguration preImage = null;
             if (pluginExecutionContext.PreEntityImages.ContainsKey("Default")
-                && (pluginExecutionContext.PreEntityImages["Default"] is mwo_GenericConfiguration))
-                preImage = pluginExecutionContext.PreEntityImages["Default"] as mwo_GenericConfiguration;
+                && (pluginExecutionContext.PreEntityImages["Default"] is Entity))
+                preImage = pluginExecutionContext.PreEntityImages["Default"].ToEntity<mwo_GenericConfiguration>();
 
             using (CrmServiceContext crmUserContext = new CrmServiceContext(factory.CreateOrganizationService(pluginExecutionContext.UserId)))
                 new GenericConfigurationValidator().Execute(crmUserContext, tracingService, target, preImage);
