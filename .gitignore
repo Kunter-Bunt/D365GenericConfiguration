@@ -339,3 +339,7 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Source/GenericConfiguration/mwo.GenericConfiguration.Plugins/spkl/Log1.txt
+/Source/GenericConfiguration/mwo.GenericConfiguration.Plugins/spkl/Log6.txt
+/Source/GenericConfiguration/mwo.GenericConfiguration.Plugins/spkl/Log7.txt
+/Source/GenericConfiguration/mwo.GenericConfiguration.Plugins/spkl/Log9.txt
+/Source/GenericConfiguration/mwo.GenericConfiguration.Plugins/spkl/Log8.txt

@@ -8,29 +8,12 @@
   ],
   "solutions": [
     {
-      "profile": "default,debug",
-      "solution_uniquename": "spkltestsolution",
+      "profile": "default,release",
+      "solution_uniquename": "GenericConfiguration",
       "packagepath": "package",
       "solutionpath": "solution_{0}_{1}_{2}_{3}.zip",
       "packagetype": "unmanaged",
-      "increment_on_import": false,
-      "map": [
-        {
-          "map": "path",
-          "from": "PluginAssemblies\\**\\*.*",
-          "to": "..\\..\\Plugins\\bin\\**"
-        },
-        {
-          "map": "path",
-          "from": "WebResources\\*.*",
-          "to": "..\\..\\Webresources\\Webresources\\**"
-        },
-        {
-          "map": "path",
-          "from": "WebResources\\**\\*.*",
-          "to": "..\\..\\Webresources\\Webresources\\**"
-        }
-      ]
+      "increment_on_import": false
     }
   ]
 }
