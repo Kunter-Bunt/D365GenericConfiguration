@@ -47,6 +47,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrmPluginRegistrationAttribute.cs" />
-    <Compile Include="EntryPoints\PreCreateGenericConfiguration.cs" />
+    <Compile Include="EntryPoints\PreValidationGenericConfiguration.cs" />
     <Compile Include="Executables\GenericConfigurationValidator.cs" />
     <Compile Include="Executables\ICRMExecutable.cs" />
     <Compile Include="Models\CRM\CrmServiceContext.cs" />
