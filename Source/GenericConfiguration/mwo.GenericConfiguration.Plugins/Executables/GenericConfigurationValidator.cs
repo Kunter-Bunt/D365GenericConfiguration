@@ -6,11 +6,25 @@ using System.Xml;
 
 namespace mwo.GenericConfiguration.Plugins.Executables
 {
-    class GenericConfigurationValidator : ICRMExecutable<mwo_GenericConfiguration>
+    /// <summary>
+    /// Class for Validating Generic Configuration Records.
+    /// </summary>
+    public class GenericConfigurationValidator : ICRMExecutable<mwo_GenericConfiguration>
     {
+
+        /// <summary>
+        /// Execute will run Validation based on type of the configuration. 
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="trace"></param>
+        /// <param name="target"></param>
+        /// <param name="preImage"></param>
         public void Execute(CrmServiceContext ctx, ITracingService trace, mwo_GenericConfiguration target, mwo_GenericConfiguration preImage = null)
         {
             var subject = CombineNeededTargetAndPreImageFields(target, preImage);
+            trace?.Trace($"{mwo_GenericConfiguration.Fields.mwo_Value}: {subject.mwo_Value}");
+            trace?.Trace($"{mwo_GenericConfiguration.Fields.mwo_Type}: {subject.mwo_TypeEnum?.ToString()}");
+
             switch (subject.mwo_TypeEnum)
             {
                 case mwo_GenericConfiguration_mwo_Type.Boolean:
@@ -70,7 +84,7 @@ namespace mwo.GenericConfiguration.Plugins.Executables
 
         private void CheckValidList(mwo_GenericConfiguration subject, string delimiter)
         {
-            if (subject.mwo_Value.EndsWith(delimiter)) 
+            if (subject.mwo_Value?.EndsWith(delimiter) == true) 
                 ThrowValidationException($"List type configuration should not end with \"{delimiter}\".");
         }
 

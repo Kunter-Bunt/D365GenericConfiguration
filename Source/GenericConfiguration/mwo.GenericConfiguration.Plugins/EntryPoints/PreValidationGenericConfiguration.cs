@@ -5,6 +5,9 @@ using System;
 
 namespace mwo.GenericConfiguration.Plugins.EntryPoints
 {
+    /// <summary>
+    /// Plugin Type Class to be registered in D365.
+    /// </summary>
     [CrmPluginRegistration(MessageNameEnum.Create, mwo_GenericConfiguration.EntityLogicalName, 
         StageEnum.PreValidation, ExecutionModeEnum.Synchronous, "",
         "mwo.GenericConfiguration.Plugins.Entrypoints.PreValidationCreateGenericConfiguration", 1, IsolationModeEnum.Sandbox)]    
@@ -14,6 +17,10 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints
         Image1Type = ImageTypeEnum.PreImage, Image1Name = "Default", Image1Attributes = "mwo_type,mwo_value")]
     public class PreValidationGenericConfiguration : IPlugin
     {
+        /// <summary>
+        /// Entrypoint for D365, will take the MS service provider and hand of to an executable.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public void Execute(IServiceProvider serviceProvider)
         {
             IPluginExecutionContext pluginExecutionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
