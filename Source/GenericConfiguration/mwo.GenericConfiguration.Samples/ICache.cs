@@ -1,4 +1,6 @@
-﻿namespace mwo.GenericConfiguration.Samples
+﻿using System;
+
+namespace mwo.GenericConfiguration.Samples
 {
     public interface ICache
     {
@@ -7,5 +9,6 @@
         bool Has(string key);
         void Remove(string key);
         void Set(string key, object value);
+        void Set(string key, object value, TimeSpan expiration);
     }
 }
