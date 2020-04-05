@@ -122,11 +122,11 @@ namespace mwo.GenericConfiguration.Samples
                     using (var reader = new StringReader(config.mwo_Value))
                         return (TOut)new XmlSerializer(typeof(TOut)).Deserialize(reader);
 
-                Trace?.Trace("Unable to guess content, returning default.");
+                Trace.Trace("Unable to guess content, returning default.");
             }
             catch (Exception ex)
             {
-                Trace?.Trace($"Failed to generate Object: {ex.Message}\n{ex.StackTrace}");
+                Trace.Trace($"Failed to generate Object: {ex.Message}\n{ex.StackTrace}");
             }
 
             return defaultValue;
@@ -146,11 +146,11 @@ namespace mwo.GenericConfiguration.Samples
         {
             if (Cache.Has(key)) return Cache.Get<mwo_GenericConfiguration>(key);
 
-            Trace?.Trace("No Config in Cache, retrieving.");
+            Trace.Trace("No Config in Cache, retrieving.");
             var record = Query.Where(_ => _.mwo_Key.Equals(key)).Select(Selector).FirstOrDefault();
 
             if (record != null) Cache.Set(key, record);
-            else Trace?.Trace("No Config in CRM.");
+            else Trace.Trace("No Config in CRM.");
 
             return record;
         }

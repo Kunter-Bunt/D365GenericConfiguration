@@ -27,6 +27,8 @@ namespace mwo.GenericConfiguration.Samples.Tests
         private readonly bool BooleanValue = true;
         private readonly string JSONKey = nameof(JSONKey);
         private readonly Dictionary<string, string> JSONValue = new Dictionary<string, string> { { nameof(JSONKey), nameof(JSONValue) } };
+        private readonly string BrokenJSONKey = nameof(BrokenJSONKey);
+        private readonly string BrokenJSONValue = "{\"Key\": \"Value\", asdf}";
         private readonly string XMLKey = nameof(XMLKey);
         private readonly XmlSerializable XMLValue = new XmlSerializable { Name = nameof(XMLValue) };
         private readonly string SemicolonListKey = nameof(SemicolonListKey);
@@ -50,6 +52,7 @@ namespace mwo.GenericConfiguration.Samples.Tests
             Context.AddObject(new mwo_GenericConfiguration { mwo_Key = DefaultKey, mwo_Value = DefaultValue, mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.Unspecified });
             Context.AddObject(new mwo_GenericConfiguration { mwo_Key = NumberKey, mwo_Value = NumberValue.ToString(), mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.Number });
             Context.AddObject(new mwo_GenericConfiguration { mwo_Key = BooleanKey, mwo_Value = BooleanValue.ToString(), mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.Boolean });
+            Context.AddObject(new mwo_GenericConfiguration { mwo_Key = BrokenJSONKey, mwo_Value = BrokenJSONValue, mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.Unspecified });
             Context.AddObject(new mwo_GenericConfiguration { mwo_Key = JSONKey, mwo_Value = new JavaScriptSerializer().Serialize(JSONValue), mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.JSON });
             Context.AddObject(new mwo_GenericConfiguration { mwo_Key = XMLKey, mwo_Value = writer.ToString(), mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.XML });
             Context.AddObject(new mwo_GenericConfiguration { mwo_Key = SemicolonListKey, mwo_Value = string.Join(";", SemicolonListValue), mwo_TypeEnum = mwo_GenericConfiguration_mwo_Type.SemicolonseparatedList });
@@ -68,6 +71,19 @@ namespace mwo.GenericConfiguration.Samples.Tests
         [TestMethod]
         public void GCReader_GetStringTest()
         {
+            //Act
+            var result = Reader.GetString(DefaultKey, string.Empty);
+
+            //Assert
+            Assert.AreEqual(DefaultValue, result);
+        }
+
+        [TestMethod]
+        public void GCReader_GetStringTwiceTest()
+        {
+            //Arrange
+            Reader.GetString(DefaultKey, string.Empty);
+
             //Act
             var result = Reader.GetString(DefaultKey, string.Empty);
 
@@ -181,6 +197,26 @@ namespace mwo.GenericConfiguration.Samples.Tests
         {
             //Act
             var result = Reader.GetObject(NotPersistedKey, JSONValue);
+
+            //Assert
+            Assert.AreEqual(JSONValue.Keys.First(), result.Keys.First());
+        }
+
+        [TestMethod]
+        public void GCReader_GetObjectNotValidTest()
+        {
+            //Act
+            var result = Reader.GetObject(DefaultKey, JSONValue);
+
+            //Assert
+            Assert.AreEqual(JSONValue.Keys.First(), result.Keys.First());
+        }
+
+        [TestMethod]
+        public void GCReader_GetJSONBrokenTest()
+        {
+            //Act
+            var result = Reader.GetObject(BrokenJSONKey, JSONValue);
 
             //Assert
             Assert.AreEqual(JSONValue.Keys.First(), result.Keys.First());

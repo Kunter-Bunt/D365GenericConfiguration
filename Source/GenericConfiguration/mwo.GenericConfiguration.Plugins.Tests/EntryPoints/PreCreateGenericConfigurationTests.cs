@@ -1,6 +1,7 @@
 ﻿using FakeXrmEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
+using mwo.GenericConfiguration.Plugins.Executables;
 using mwo.GenericConfiguration.Plugins.Models.CRM;
 using System.Collections.Generic;
 
@@ -23,6 +24,7 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints.Tests
         }
 
         [DataRow("Value", mwo_GenericConfiguration_mwo_Type.Unspecified, true)]
+        [DataRow("Value", null, true)]
         [DataRow(null, mwo_GenericConfiguration_mwo_Type.Unspecified, true)]
         [DataRow(null, mwo_GenericConfiguration_mwo_Type.JSON, false)]
         [DataRow("Value", mwo_GenericConfiguration_mwo_Type.JSON, false)]
@@ -53,7 +55,7 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints.Tests
         [DataRow(OkXml, mwo_GenericConfiguration_mwo_Type.XML, true)]
         [DataRow(BrokenXml, mwo_GenericConfiguration_mwo_Type.XML, false)]
         [DataTestMethod]
-        public void ExecuteCreateTest(string value, mwo_GenericConfiguration_mwo_Type type, bool shouldSuccceed)
+        public void PreValGC_CreateTest(string value, mwo_GenericConfiguration_mwo_Type? type, bool shouldSuccceed)
         {
             var target = new mwo_GenericConfiguration { mwo_Key = Key, mwo_Value = value, mwo_TypeEnum = type };
 
@@ -107,7 +109,7 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints.Tests
         [DataRow(OkXml, OkXml, mwo_GenericConfiguration_mwo_Type.Unspecified, mwo_GenericConfiguration_mwo_Type.XML, true)]
         [DataRow(OkXml, BrokenXml, mwo_GenericConfiguration_mwo_Type.XML, mwo_GenericConfiguration_mwo_Type.Unspecified, true)]
         [DataTestMethod]
-        public void ExecuteUpdateTest(string oldValue, string newValue, mwo_GenericConfiguration_mwo_Type oldType, mwo_GenericConfiguration_mwo_Type newType, bool shouldSuccceed)
+        public void PreValGC_UpdateTest(string oldValue, string newValue, mwo_GenericConfiguration_mwo_Type oldType, mwo_GenericConfiguration_mwo_Type newType, bool shouldSuccceed)
         {
             var preImage = new mwo_GenericConfiguration { mwo_Key = Key, mwo_Value = oldValue, mwo_TypeEnum = oldType };
             preImage.Id = Service.Create(preImage);
@@ -128,6 +130,49 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints.Tests
             }
 
             if (!shouldSuccceed) Assert.Fail("Plugin should have thrown in Validation, but didn't.");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidPluginExecutionException))]
+        public void PreValGC_NoServiceTest()
+        {
+            //Arrange
+            var executable = new PreValidationGenericConfiguration();
+
+            //Act
+            executable.Execute(null);
+        }
+
+        [TestMethod]
+        public void PreValGC_NoTargetTest()
+        {
+            //Arrange
+            XrmFakedPluginExecutionContext pluginContext = SetupPluginExecutioncontext(null, null);
+            pluginContext.InputParameters.Remove(PreValidationGenericConfiguration.TargetName);
+
+            //Act
+            Context.ExecutePluginWith<PreValidationGenericConfiguration>(pluginContext);
+        }
+
+        [TestMethod]
+        public void PreValGC_InvalidTargetTest()
+        {
+            //Arrange
+            XrmFakedPluginExecutionContext pluginContext = SetupPluginExecutioncontext(null, null);
+
+            //Act
+            Context.ExecutePluginWith<PreValidationGenericConfiguration>(pluginContext);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidPluginExecutionException))]
+        public void Executable_NoTargetTest()
+        {
+            //Arrange
+            var executable = new GenericConfigurationValidator();
+
+            //Act
+            executable.Execute(null, null, null);
         }
 
         private XrmFakedPluginExecutionContext SetupPluginExecutioncontext(mwo_GenericConfiguration target, mwo_GenericConfiguration preImage)

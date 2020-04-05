@@ -23,8 +23,8 @@ namespace mwo.GenericConfiguration.Plugins.Executables
         {
             if (target == null) throw new InvalidPluginExecutionException(nameof(target) + Errors.NullError);
             var subject = CombineNeededTargetAndPreImageFields(target, preImage);
-            trace?.Trace($"{mwo_GenericConfiguration.Fields.mwo_Value}: {subject.mwo_Value}");
-            trace?.Trace($"{mwo_GenericConfiguration.Fields.mwo_Type}: {subject.mwo_TypeEnum?.ToString()}");
+            trace.Trace($"{mwo_GenericConfiguration.Fields.mwo_Value}: {subject.mwo_Value}");
+            trace.Trace($"{mwo_GenericConfiguration.Fields.mwo_Type}: {subject.mwo_TypeEnum?.ToString()}");
 
             switch (subject.mwo_TypeEnum)
             {
