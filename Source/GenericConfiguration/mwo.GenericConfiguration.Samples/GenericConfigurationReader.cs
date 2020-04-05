@@ -2,6 +2,7 @@
 using mwo.GenericConfiguration.Plugins.Models.CRM;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Xml.Serialization;
@@ -26,7 +27,7 @@ namespace mwo.GenericConfiguration.Samples
         private IQueryable<mwo_GenericConfiguration> Query { get; set; }
         private readonly CrmServiceContext Context;
         private readonly ICache Cache;
-        private readonly Func<mwo_GenericConfiguration, mwo_GenericConfiguration> Selector = _ => new mwo_GenericConfiguration { Id = _.Id, mwo_Key = _.mwo_Key, mwo_Value = _.mwo_Value, mwo_TypeEnum = _.mwo_TypeEnum } ;
+        private readonly Func<mwo_GenericConfiguration, mwo_GenericConfiguration> Selector = _ => new mwo_GenericConfiguration { Id = _.Id, mwo_Key = _.mwo_Key, mwo_Value = _.mwo_Value, mwo_TypeEnum = _.mwo_TypeEnum };
 
         /// <summary>
         /// Default Constructor
@@ -115,19 +116,14 @@ namespace mwo.GenericConfiguration.Samples
             try
             {
                 if (config.mwo_TypeEnum == mwo_GenericConfiguration_mwo_Type.JSON || config.mwo_Value.StartsWith("{") || config.mwo_Value.StartsWith("["))
-                {
-                    var serializer = new JavaScriptSerializer();
-                    return serializer.Deserialize<TOut>(config.mwo_Value);
-                }
+                    return new JavaScriptSerializer().Deserialize<TOut>(config.mwo_Value);
+
                 else if (config.mwo_TypeEnum == mwo_GenericConfiguration_mwo_Type.XML || config.mwo_Value.StartsWith("<"))
-                {
-                    using (var reader = new System.IO.StringReader(config.mwo_Value))
-                    {
-                        var serializer = new XmlSerializer(typeof(TOut));
-                        return (TOut)serializer.Deserialize(reader);
-                    }
-                }
-            } 
+                    using (var reader = new StringReader(config.mwo_Value))
+                        return (TOut)new XmlSerializer(typeof(TOut)).Deserialize(reader);
+
+                Trace?.Trace("Unable to guess content, returning default.");
+            }
             catch (Exception ex)
             {
                 Trace?.Trace($"Failed to generate Object: {ex.Message}\n{ex.StackTrace}");

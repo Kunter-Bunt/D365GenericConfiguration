@@ -136,13 +136,13 @@ namespace mwo.GenericConfiguration.Plugins.EntryPoints.Tests
             pluginExecutionContext.MessageName = MessageNameEnum.Update.ToString();
             pluginExecutionContext.Stage = (int)StageEnum.PreValidation;
             pluginExecutionContext.InputParameters = new ParameterCollection {
-                new KeyValuePair<string, object>("Target", target)
+                new KeyValuePair<string, object>(PreValidationGenericConfiguration.TargetName, target)
             };
 
             if (preImage != null)
             {
                 pluginExecutionContext.PreEntityImages = new EntityImageCollection() {
-                    new KeyValuePair<string, Entity> ("Default", preImage)
+                    new KeyValuePair<string, Entity> (PreValidationGenericConfiguration.PreImageName, preImage)
                 };
             }
 
