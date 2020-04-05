@@ -6,35 +6,35 @@ using mwo.GenericConfiguration.Plugins.Models.CRM;
 
 namespace mwo.GenericConfiguration.Plugins.EntryPoints.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class GenericConfiguationValueByKeyTests
     {
-        XrmFakedContext ctx;
-        IOrganizationService svc;
-        const string key = nameof(key);
-        const string notpersistedKey = nameof(notpersistedKey);
-        const string value = nameof(value);
+        private XrmFakedContext Context;
+        private IOrganizationService Service;
+        private const string Key = nameof(Key);
+        private const string NotPersistedKey = nameof(NotPersistedKey);
+        private const string Value = nameof(Value);
 
         [TestInitialize]
         public void Initialize()
         {
-            ctx = new XrmFakedContext();
-            svc = ctx.GetOrganizationService();
-            svc.Create(new mwo_GenericConfiguration { mwo_Key = key, mwo_Value = value });
+            Context = new XrmFakedContext();
+            Service = Context.GetOrganizationService();
+            Service.Create(new mwo_GenericConfiguration { mwo_Key = Key, mwo_Value = Value });
         }
 
-        [DataRow(key, value)]
-        [DataRow(notpersistedKey, null)]
+        [DataRow(Key, Value)]
+        [DataRow(NotPersistedKey, null)]
         [DataTestMethod]
         public void ExecuteTest(string keyToRetrieve, string expectedValue)
         {
             var inputs = new Dictionary<string, object> {
-                { "Key", keyToRetrieve }
+                { nameof(GenericConfiguationValueByKey.Key), keyToRetrieve }
             };
 
-            var outputs = ctx.ExecuteCodeActivity<GenericConfiguationValueByKey>(inputs);
+            var outputs = Context.ExecuteCodeActivity<GenericConfiguationValueByKey>(inputs);
 
-            Assert.AreEqual(expectedValue, outputs["Value"]);
+            Assert.AreEqual(expectedValue, outputs[nameof(GenericConfiguationValueByKey.Value)]);
         }
     }
 }
