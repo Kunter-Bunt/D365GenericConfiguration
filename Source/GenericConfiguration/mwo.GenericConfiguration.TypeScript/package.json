@@ -13,8 +13,12 @@
     "name": "Marius Wodtke"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.1",
     "@types/xrm": "^9.0.23",
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1",
     "sinon": "^9.0.2",
     "typescript": "^3.8.3",
     "xrm-mock": "^3.4.17"
