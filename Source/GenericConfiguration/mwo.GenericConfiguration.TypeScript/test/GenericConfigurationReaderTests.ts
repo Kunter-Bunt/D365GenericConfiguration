@@ -10,7 +10,7 @@ function Setup(value: string, type: number) {
     const stub = sinon.stub(Xrm.WebApi, "retrieveMultipleRecords");
 
     stub.withArgs(sinon.match.string, sinon.match(key)).resolves({
-        entities: [{ mwo_value: value, mwo_type: type }]
+        entities: [{ mwo_value: value, mwo_type: type }] // eslint-disable-line
     });
 
     stub.withArgs(sinon.match.string, sinon.match(notPersistedKey)).resolves({
