@@ -32,9 +32,44 @@ describe('GCR Get String Tests', function () {
             chai_1.expect(result).to.be.equal(value);
         });
     });
-    it("should retrun default value", function () {
+    it("should retrun default value if not persisted", function () {
         //Act
         var result = GenericConfigurationReader_1.default.GetString(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.equal(dflt);
+        });
+    });
+});
+describe('GCR Get Bool Tests', function () {
+    var value = true;
+    var dflt = false;
+    var type = 122870003;
+    it("should retrieve the config value", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetBool(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.equal(value);
+        });
+    });
+    it("should retrun default value if not persisted", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetBool(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.equal(dflt);
+        });
+    });
+    it("should retrun default value if not castable", function () {
+        //Arrange
+        Setup("Nope", type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetBool(key, dflt);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
