@@ -13,8 +13,8 @@
     "name": "Marius Wodtke"
   },
   "devDependencies": {
-    "@delegateas/xrmdefinitelytyped": "^4.3.10",
     "@types/node": "^13.11.1",
+    "@types/xrm": "^9.0.23",
     "sinon": "^9.0.2",
     "typescript": "^3.8.3",
     "xrm-mock": "^3.4.17"

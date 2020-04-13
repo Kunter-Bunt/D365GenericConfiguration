@@ -3,10 +3,14 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "module": "commonjs",
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "removeComments": false,
     "sourceMap": true,
-    "target": "es5"
+    "target": "ES5",
+    "lib": [ "ES5", "DOM" ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "exclude": [
     "node_modules"

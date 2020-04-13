@@ -46,7 +46,6 @@
       <SubType>Code</SubType>
       <TestFramework>ExportRunner</TestFramework>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Typings\XRM\xrm.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Typings\" />

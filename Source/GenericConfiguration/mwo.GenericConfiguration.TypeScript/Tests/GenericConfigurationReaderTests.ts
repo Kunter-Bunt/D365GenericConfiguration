@@ -5,8 +5,8 @@ import GenericConfigurationReader from "../mwo_/GenericConfigurationReader"
 
 export function GCRGetStringTest() {
     const value = "Test";
-
     XrmMockGenerator.initialise();
+
     sinon.stub(Xrm.WebApi, "retrieveMultipleRecords").resolves({
         entites: [{ mwo_value: value}]
     });
