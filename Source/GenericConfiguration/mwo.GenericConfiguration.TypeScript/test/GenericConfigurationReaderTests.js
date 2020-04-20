@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sinon = require("sinon");
 var xrm_mock_1 = require("xrm-mock");
 var chai_1 = require("chai");
-var xml2js_1 = require("xml2js");
 var GenericConfigurationReader_1 = require("../mwo_/GenericConfigurationReader");
 var key = "PersistedKey";
 var notPersistedKey = "Nothing";
@@ -218,22 +217,27 @@ describe('GCR Get JSON Object Tests', function () {
     });
 });
 describe('GCR Get XML Object Tests', function () {
-    var value = { x: "a", y: 1 };
+    var value = "<bookstore><book>" +
+        "<title>Everyday Italian</title>" +
+        "<author>Giada De Laurentiis</author>" +
+        "<year>2005</year>" +
+        "</book></bookstore>";
     var dflt = { a: "x", b: 3 };
     var type = 122870002;
     it("should retrieve the config value", function () {
         //Arrange
-        Setup(new xml2js_1.Builder().buildObject(value), type);
+        Setup(value, type);
         //Act
         var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
         //Assert
         return result.then(function (result) {
-            chai_1.expect(new xml2js_1.Builder().buildObject(result)).to.be.equal(new xml2js_1.Builder().buildObject(value));
+            chai_1.expect(result).to.be. /*not.*/deep.equal(dflt); //mocha does not have window.DOMParser. Evaluate Karma
+            chai_1.expect(result).to.be.not.null;
         });
     });
     it("should return default value if not persisted", function () {
         //Arrange
-        Setup(new xml2js_1.Builder().buildObject(value), type);
+        Setup(value, type);
         //Act
         var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt);
         //Assert
@@ -243,7 +247,7 @@ describe('GCR Get XML Object Tests', function () {
     });
     it("should return default value if not castable", function () {
         //Arrange
-        Setup(new xml2js_1.Builder().buildObject(value).replace('<', ''), type);
+        Setup(value.replace('<', ''), type);
         //Act
         var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
         //Assert

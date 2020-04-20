@@ -1,5 +1,4 @@
 /// <reference types="xrm" />
-import { Parser } from "xml2js";
 
 export default class GenericConfigurationReader {
     public static GetString(key: string, defaultValue: string): Promise<string> {
@@ -69,10 +68,7 @@ export default class GenericConfigurationReader {
                         }
 
                         else if (result.mwo_type === 122870002/*XML*/ || result.mwo_value.StartsWith("<"))
-                            new Parser().parseString(result.mwo_value, (error, result) => {
-                                if (error) handleError(error);
-                                else resolve(result);
-                            });
+                            resolve(new window.DOMParser().parseFromString(result.mwo_value, "text/xml"))
 
                         else resolve(defaultValue);
                     } catch (error) {

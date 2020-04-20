@@ -1,7 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference types="xrm" />
-var xml2js_1 = require("xml2js");
+Object.defineProperty(exports, "__esModule", { value: true });
 var GenericConfigurationReader = /** @class */ (function () {
     function GenericConfigurationReader() {
     }
@@ -69,12 +68,7 @@ var GenericConfigurationReader = /** @class */ (function () {
                             resolve(val);
                         }
                         else if (result.mwo_type === 122870002 /*XML*/ || result.mwo_value.StartsWith("<"))
-                            new xml2js_1.Parser().parseString(result.mwo_value, function (error, result) {
-                                if (error)
-                                    handleError(error);
-                                else
-                                    resolve(result);
-                            });
+                            resolve(new window.DOMParser().parseFromString(result.mwo_value, "text/xml"));
                         else
                             resolve(defaultValue);
                     }
