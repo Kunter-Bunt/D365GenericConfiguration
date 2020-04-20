@@ -55,24 +55,18 @@ export default class GenericConfigurationReader {
     public static GetObject(key: string, defaultValue: any): Promise<any> { // eslint-disable-line
         return new Promise(resolve => {
             GenericConfigurationReader.Get(key).then(result => {
-                function handleError(error) {
-                    console.warn("Failed to generate Object: " + error);
-                    resolve(defaultValue);
-                }
-
                 if (result !== null && result.mwo_value !== null) {
                     try {
-                        if (result.mwo_type === 122870001/*JSON*/ || result.mwo_value.startsWith("{") || result.mwo_value.startsWith("[")) {
-                            const val = JSON.parse(result.mwo_value);
-                            resolve(val);
-                        }
+                        if (result.mwo_type === 122870001/*JSON*/ || result.mwo_value.startsWith("{") || result.mwo_value.startsWith("[")) 
+                            resolve(JSON.parse(result.mwo_value));
 
                         else if (result.mwo_type === 122870002/*XML*/ || result.mwo_value.StartsWith("<"))
-                            resolve(new window.DOMParser().parseFromString(result.mwo_value, "text/xml"))
+                            resolve(new window.DOMParser().parseFromString(result.mwo_value, "text/xml").documentElement)
 
                         else resolve(defaultValue);
                     } catch (error) {
-                        handleError(error)
+                        console.warn("Failed to generate Object: " + error);
+                        resolve(defaultValue);
                     }
                 }
                 else resolve(defaultValue);
@@ -82,7 +76,7 @@ export default class GenericConfigurationReader {
 
     private static Get(key: string): Promise<any> {
         return new Promise(resolve => {
-            Xrm.WebApi.retrieveMultipleRecords("mwo_genericconfiguration", "$select=mwo_value,mwo_type&$filter=mwo_key eq '" + key + "'").then(result => {
+            Xrm.WebApi.retrieveMultipleRecords("mwo_genericconfiguration", "?$select=mwo_value,mwo_type&$filter=mwo_key eq '" + key + "'").then(result => {
                 if (result.entities && result.entities.length > 0)
                     resolve(result.entities[0]);
                 else

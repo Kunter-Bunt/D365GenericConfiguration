@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "noImplicitAny": false,
-    "module": "commonjs",
+    "module": "CommonJS",
     "noEmitOnError": false,
     "removeComments": false,
     "sourceMap": true,
