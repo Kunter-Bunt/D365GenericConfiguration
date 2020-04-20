@@ -3,9 +3,9 @@
 var GenericConfigurationReader = /** @class */ (function () {
     function GenericConfigurationReader() {
     }
-    GenericConfigurationReader.GetString = function (key, defaultValue) {
+    GenericConfigurationReader.GetString = function (key, defaultValue, storage) {
         return new Promise(function (resolve) {
-            GenericConfigurationReader.Get(key).then(function (result) {
+            GenericConfigurationReader.Get(key, storage).then(function (result) {
                 if (result !== null && result.mwo_value !== null)
                     resolve(result.mwo_value);
                 else
@@ -13,9 +13,9 @@ var GenericConfigurationReader = /** @class */ (function () {
             });
         });
     };
-    GenericConfigurationReader.GetBool = function (key, defaultValue) {
+    GenericConfigurationReader.GetBool = function (key, defaultValue, storage) {
         return new Promise(function (resolve) {
-            GenericConfigurationReader.Get(key).then(function (result) {
+            GenericConfigurationReader.Get(key, storage).then(function (result) {
                 var ret = defaultValue;
                 if (result !== null && result.mwo_value !== null) {
                     var val = result.mwo_value.toLowerCase();
@@ -28,9 +28,9 @@ var GenericConfigurationReader = /** @class */ (function () {
             });
         });
     };
-    GenericConfigurationReader.GetNumber = function (key, defaultValue) {
+    GenericConfigurationReader.GetNumber = function (key, defaultValue, storage) {
         return new Promise(function (resolve) {
-            GenericConfigurationReader.Get(key).then(function (result) {
+            GenericConfigurationReader.Get(key, storage).then(function (result) {
                 var ret = defaultValue;
                 if (result !== null && result.mwo_value !== null) {
                     var val = Number(result.mwo_value);
@@ -41,9 +41,9 @@ var GenericConfigurationReader = /** @class */ (function () {
             });
         });
     };
-    GenericConfigurationReader.GetList = function (key, defaultValue) {
+    GenericConfigurationReader.GetList = function (key, defaultValue, storage) {
         return new Promise(function (resolve) {
-            GenericConfigurationReader.Get(key).then(function (result) {
+            GenericConfigurationReader.Get(key, storage).then(function (result) {
                 var ret = defaultValue;
                 if (result !== null && result.mwo_value !== null) {
                     var separator = result.mwo_type === 122870006 /*SemicolonseparatedList*/ ? ';' : ',';
@@ -53,9 +53,9 @@ var GenericConfigurationReader = /** @class */ (function () {
             });
         });
     };
-    GenericConfigurationReader.GetObject = function (key, defaultValue) {
+    GenericConfigurationReader.GetObject = function (key, defaultValue, storage) {
         return new Promise(function (resolve) {
-            GenericConfigurationReader.Get(key).then(function (result) {
+            GenericConfigurationReader.Get(key, storage).then(function (result) {
                 if (result !== null && result.mwo_value !== null) {
                     try {
                         if (result.mwo_type === 122870001 /*JSON*/ || result.mwo_value.startsWith("{") || result.mwo_value.startsWith("["))
@@ -75,15 +75,32 @@ var GenericConfigurationReader = /** @class */ (function () {
             });
         });
     };
-    GenericConfigurationReader.Get = function (key) {
+    GenericConfigurationReader.Get = function (key, storage) {
+        var _this = this;
         return new Promise(function (resolve) {
-            Xrm.WebApi.retrieveMultipleRecords("mwo_genericconfiguration", "?$select=mwo_value,mwo_type&$filter=mwo_key eq '" + key + "'").then(function (result) {
-                if (result.entities && result.entities.length > 0)
-                    resolve(result.entities[0]);
-                else
-                    resolve(null);
-            });
+            var cache = _this.GetFromCache(key, storage);
+            if (cache)
+                resolve(cache);
+            else
+                Xrm.WebApi.retrieveMultipleRecords("mwo_genericconfiguration", "?$select=mwo_value,mwo_type&$filter=mwo_key eq '" + key + "'").then(function (result) {
+                    if (result.entities && result.entities.length > 0) {
+                        _this.SaveToCache(key, result.entities[0], storage);
+                        resolve(result.entities[0]);
+                    }
+                    else
+                        resolve(null);
+                });
         });
+    };
+    GenericConfigurationReader.GetFromCache = function (key, storage) {
+        if (storage && storage.getItem("mwo_genericconfiguration_" + key))
+            return JSON.parse(storage.getItem("mwo_genericconfiguration_" + key));
+        else
+            return null;
+    };
+    GenericConfigurationReader.SaveToCache = function (key, value, storage) {
+        if (storage)
+            storage.setItem("mwo_genericconfiguration_" + key, JSON.stringify(value));
     };
     return GenericConfigurationReader;
 }());

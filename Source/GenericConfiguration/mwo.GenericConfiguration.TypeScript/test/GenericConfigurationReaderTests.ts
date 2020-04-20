@@ -32,7 +32,7 @@ describe('GCR Get String Tests', () => {
 
     it("should retrieve the config value", () => {
         //Act
-        const result = GenericConfigurationReader.GetString(key, dflt);
+        const result = GenericConfigurationReader.GetString(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -42,7 +42,7 @@ describe('GCR Get String Tests', () => {
 
     it("should return default value if not persisted", () => {
         //Act
-        const result = GenericConfigurationReader.GetString(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetString(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -61,7 +61,7 @@ describe('GCR Get Bool Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetBool(key, dflt);
+        const result = GenericConfigurationReader.GetBool(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -74,7 +74,7 @@ describe('GCR Get Bool Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetBool(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetBool(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -87,7 +87,7 @@ describe('GCR Get Bool Tests', () => {
         Setup("Nope", type);
 
         //Act
-        const result = GenericConfigurationReader.GetBool(key, dflt);
+        const result = GenericConfigurationReader.GetBool(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -106,7 +106,7 @@ describe('GCR Get Number Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetNumber(key, dflt);
+        const result = GenericConfigurationReader.GetNumber(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -119,7 +119,7 @@ describe('GCR Get Number Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetNumber(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetNumber(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -132,7 +132,7 @@ describe('GCR Get Number Tests', () => {
         Setup("Nope", type);
 
         //Act
-        const result = GenericConfigurationReader.GetNumber(key, dflt);
+        const result = GenericConfigurationReader.GetNumber(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -152,7 +152,7 @@ describe('GCR Get Semicolon List Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetList(key, dflt);
+        const result = GenericConfigurationReader.GetList(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -165,7 +165,7 @@ describe('GCR Get Semicolon List Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetList(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetList(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -178,7 +178,7 @@ describe('GCR Get Semicolon List Tests', () => {
         Setup(null, type);
 
         //Act
-        const result = GenericConfigurationReader.GetList(key, dflt);
+        const result = GenericConfigurationReader.GetList(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -197,7 +197,7 @@ describe('GCR Get Comma List Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetList(key, dflt);
+        const result = GenericConfigurationReader.GetList(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -210,7 +210,7 @@ describe('GCR Get Comma List Tests', () => {
         Setup(value.toString(), type);
 
         //Act
-        const result = GenericConfigurationReader.GetList(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetList(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -223,7 +223,7 @@ describe('GCR Get Comma List Tests', () => {
         Setup(null, type);
 
         //Act
-        const result = GenericConfigurationReader.GetList(key, dflt);
+        const result = GenericConfigurationReader.GetList(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -242,7 +242,7 @@ describe('GCR Get JSON Object Tests', () => {
         Setup(JSON.stringify(value), type);
 
         //Act
-        const result = GenericConfigurationReader.GetObject(key, dflt);
+        const result = GenericConfigurationReader.GetObject(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -255,7 +255,7 @@ describe('GCR Get JSON Object Tests', () => {
         Setup(JSON.stringify(value), type);
 
         //Act
-        const result = GenericConfigurationReader.GetObject(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetObject(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -268,7 +268,7 @@ describe('GCR Get JSON Object Tests', () => {
         Setup(null, type);
 
         //Act
-        const result = GenericConfigurationReader.GetObject(key, dflt);
+        const result = GenericConfigurationReader.GetObject(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -291,7 +291,7 @@ describe('GCR Get XML Object Tests', () => {
         Setup(value, type);
         
         //Act
-        const result = GenericConfigurationReader.GetObject(key, dflt);
+        const result = GenericConfigurationReader.GetObject(key, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -305,7 +305,7 @@ describe('GCR Get XML Object Tests', () => {
         Setup(value, type);
 
         //Act
-        const result = GenericConfigurationReader.GetObject(notPersistedKey, dflt);
+        const result = GenericConfigurationReader.GetObject(notPersistedKey, dflt, null);
 
         //Assert
         return result.then((result) => {
@@ -318,7 +318,7 @@ describe('GCR Get XML Object Tests', () => {
         Setup(value.replace('<', ''), type);
 
         //Act
-        const result = GenericConfigurationReader.GetObject(key, dflt);
+        const result = GenericConfigurationReader.GetObject(key, dflt, null);
 
         //Assert
         return result.then((result) => {

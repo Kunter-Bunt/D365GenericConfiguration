@@ -26,7 +26,7 @@ describe('GCR Get String Tests', function () {
     });
     it("should retrieve the config value", function () {
         //Act
-        var result = GenericConfigurationReader_1.default.GetString(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetString(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(value);
@@ -34,7 +34,7 @@ describe('GCR Get String Tests', function () {
     });
     it("should return default value if not persisted", function () {
         //Act
-        var result = GenericConfigurationReader_1.default.GetString(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetString(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
@@ -49,7 +49,7 @@ describe('GCR Get Bool Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetBool(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetBool(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(value);
@@ -59,7 +59,7 @@ describe('GCR Get Bool Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetBool(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetBool(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
@@ -69,7 +69,7 @@ describe('GCR Get Bool Tests', function () {
         //Arrange
         Setup("Nope", type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetBool(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetBool(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
@@ -84,7 +84,7 @@ describe('GCR Get Number Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetNumber(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetNumber(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(value);
@@ -94,7 +94,7 @@ describe('GCR Get Number Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetNumber(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetNumber(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
@@ -104,7 +104,7 @@ describe('GCR Get Number Tests', function () {
         //Arrange
         Setup("Nope", type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetNumber(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetNumber(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
@@ -119,7 +119,7 @@ describe('GCR Get Semicolon List Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result.join(";")).to.be.equal(value);
@@ -129,7 +129,7 @@ describe('GCR Get Semicolon List Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetList(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetList(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -139,7 +139,7 @@ describe('GCR Get Semicolon List Tests', function () {
         //Arrange
         Setup(null, type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -154,7 +154,7 @@ describe('GCR Get Comma List Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result.join(",")).to.be.equal(value);
@@ -164,7 +164,7 @@ describe('GCR Get Comma List Tests', function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetList(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetList(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -174,7 +174,7 @@ describe('GCR Get Comma List Tests', function () {
         //Arrange
         Setup(null, type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -189,7 +189,7 @@ describe('GCR Get JSON Object Tests', function () {
         //Arrange
         Setup(JSON.stringify(value), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(value);
@@ -199,7 +199,7 @@ describe('GCR Get JSON Object Tests', function () {
         //Arrange
         Setup(JSON.stringify(value), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -209,7 +209,7 @@ describe('GCR Get JSON Object Tests', function () {
         //Arrange
         Setup(null, type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -228,7 +228,7 @@ describe('GCR Get XML Object Tests', function () {
         //Arrange
         Setup(value, type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be. /*not.*/deep.equal(dflt); //mocha does not have window.DOMParser. Evaluate Karma
@@ -239,7 +239,7 @@ describe('GCR Get XML Object Tests', function () {
         //Arrange
         Setup(value, type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt);
+        var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
@@ -249,7 +249,7 @@ describe('GCR Get XML Object Tests', function () {
         //Arrange
         Setup(value.replace('<', ''), type);
         //Act
-        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt, null);
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.deep.equal(dflt);
