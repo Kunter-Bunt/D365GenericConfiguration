@@ -1,0 +1,15 @@
+{
+  "webresources": [
+    {
+      "root": "",
+      "solution": "GenericConfiguration",
+      "files": [
+        {
+          "uniquename": "mwo_/GenericConfigurationReader.js",
+          "file": "mwo_\\GenericConfigurationReader.js",
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

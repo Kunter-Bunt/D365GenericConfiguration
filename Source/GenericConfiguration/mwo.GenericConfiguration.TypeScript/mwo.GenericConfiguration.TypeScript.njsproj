@@ -37,7 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="package.json" />
-    <Content Include="rollup.config.js" />
+    <Content Include="spkl.json" />
+    <Content Include="spkl\deploy-webresources.bat" />
+    <Content Include="spkl\download-webresources.bat" />
     <Content Include="tsconfig.json">
       <SubType>Code</SubType>
     </Content>
@@ -53,6 +55,7 @@
     </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="spkl\" />
     <Folder Include="test\" />
     <Folder Include="mwo_\" />
   </ItemGroup>
