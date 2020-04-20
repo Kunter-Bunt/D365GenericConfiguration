@@ -45,6 +45,9 @@
     <TypeScriptCompile Include="mwo_\GenericConfigurationReader.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="mwo_\lib\JXONTree.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="test\GenericConfigurationReaderTests.ts">
       <SubType>Code</SubType>
       <TestFramework>Mocha</TestFramework>
@@ -52,6 +55,7 @@
     </TypeScriptCompile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="mwo_\lib\" />
     <Folder Include="test\" />
     <Folder Include="mwo_\" />
   </ItemGroup>

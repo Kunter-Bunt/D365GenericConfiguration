@@ -1,9 +1,11 @@
 /// <reference types="xrm" />
+import { Parser } from "xml2js";
+
 export default class GenericConfigurationReader {
     public static GetString(key: string, defaultValue: string): Promise<string> {
         return new Promise(resolve => {
             GenericConfigurationReader.Get(key).then(result => {
-                if (result !== null)
+                if (result !== null && result.mwo_value !== null)
                     resolve(result.mwo_value);
                 else
                     resolve(defaultValue);
@@ -15,12 +17,69 @@ export default class GenericConfigurationReader {
         return new Promise(resolve => {
             GenericConfigurationReader.Get(key).then(result => {
                 let ret = defaultValue;
-                if (result !== null) {
+                if (result !== null && result.mwo_value !== null) {
                     const val = result.mwo_value.toLowerCase()
                     if (val === "true") ret = true;
                     else if (val === "false") ret = false
                 }
                 resolve(ret);
+            });
+        });
+    }
+
+    public static GetNumber(key: string, defaultValue: number): Promise<number> {
+        return new Promise(resolve => {
+            GenericConfigurationReader.Get(key).then(result => {
+                let ret = defaultValue;
+                if (result !== null && result.mwo_value !== null) {
+                    const val = Number(result.mwo_value);
+                    if (!Number.isNaN(val)) ret = val;
+                }
+                resolve(ret);
+            });
+        });
+    }
+
+    public static GetList(key: string, defaultValue: Array<string>): Promise<Array<string>> {
+        return new Promise(resolve => {
+            GenericConfigurationReader.Get(key).then(result => {
+                let ret = defaultValue;
+                if (result !== null && result.mwo_value !== null) {
+                    const separator = result.mwo_type === 122870006/*SemicolonseparatedList*/ ? ';' : ',';
+                    ret = result.mwo_value.split(separator);
+                }
+                resolve(ret);
+            });
+        });
+    }
+
+    public static GetObject(key: string, defaultValue: any): Promise<any> { // eslint-disable-line
+        return new Promise(resolve => {
+            GenericConfigurationReader.Get(key).then(result => {
+                function handleError(error) {
+                    console.warn("Failed to generate Object: " + error);
+                    resolve(defaultValue);
+                }
+
+                if (result !== null && result.mwo_value !== null) {
+                    try {
+                        if (result.mwo_type === 122870001/*JSON*/ || result.mwo_value.startsWith("{") || result.mwo_value.startsWith("[")) {
+                            const val = JSON.parse(result.mwo_value);
+                            resolve(val);
+                        }
+
+                        else if (result.mwo_type === 122870002/*XML*/ || result.mwo_value.StartsWith("<"))
+                            new Parser().parseString(result.mwo_value, (error, result) => {
+                                if (error) handleError(error);
+                                else resolve(result);
+                            });
+
+                        else resolve(defaultValue);
+                    } catch (error) {
+                        handleError(error)
+                    }
+                }
+                else resolve(defaultValue);
             });
         });
     }

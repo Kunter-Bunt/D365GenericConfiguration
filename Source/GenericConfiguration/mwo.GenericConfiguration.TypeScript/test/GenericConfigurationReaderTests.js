@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sinon = require("sinon");
 var xrm_mock_1 = require("xrm-mock");
 var chai_1 = require("chai");
+var xml2js_1 = require("xml2js");
 var GenericConfigurationReader_1 = require("../mwo_/GenericConfigurationReader");
 var key = "PersistedKey";
 var notPersistedKey = "Nothing";
@@ -32,7 +33,7 @@ describe('GCR Get String Tests', function () {
             chai_1.expect(result).to.be.equal(value);
         });
     });
-    it("should retrun default value if not persisted", function () {
+    it("should return default value if not persisted", function () {
         //Act
         var result = GenericConfigurationReader_1.default.GetString(notPersistedKey, dflt);
         //Assert
@@ -55,7 +56,7 @@ describe('GCR Get Bool Tests', function () {
             chai_1.expect(result).to.be.equal(value);
         });
     });
-    it("should retrun default value if not persisted", function () {
+    it("should return default value if not persisted", function () {
         //Arrange
         Setup(value.toString(), type);
         //Act
@@ -65,7 +66,7 @@ describe('GCR Get Bool Tests', function () {
             chai_1.expect(result).to.be.equal(dflt);
         });
     });
-    it("should retrun default value if not castable", function () {
+    it("should return default value if not castable", function () {
         //Arrange
         Setup("Nope", type);
         //Act
@@ -73,6 +74,181 @@ describe('GCR Get Bool Tests', function () {
         //Assert
         return result.then(function (result) {
             chai_1.expect(result).to.be.equal(dflt);
+        });
+    });
+});
+describe('GCR Get Number Tests', function () {
+    var value = 127;
+    var dflt = 2;
+    var type = 122870004;
+    it("should retrieve the config value", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetNumber(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.equal(value);
+        });
+    });
+    it("should return default value if not persisted", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetNumber(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.equal(dflt);
+        });
+    });
+    it("should return default value if not castable", function () {
+        //Arrange
+        Setup("Nope", type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetNumber(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.equal(dflt);
+        });
+    });
+});
+describe('GCR Get Semicolon List Tests', function () {
+    var value = "1;2;3;4";
+    var dflt = ["1", "2", "3"];
+    var type = 122870006;
+    it("should retrieve the config value", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result.join(";")).to.be.equal(value);
+        });
+    });
+    it("should return default value if not persisted", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetList(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+    it("should return default value if not castable", function () {
+        //Arrange
+        Setup(null, type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+});
+describe('GCR Get Comma List Tests', function () {
+    var value = "1,2,3,4";
+    var dflt = ["1", "2", "3"];
+    var type = 122870005;
+    it("should retrieve the config value", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result.join(",")).to.be.equal(value);
+        });
+    });
+    it("should return default value if not persisted", function () {
+        //Arrange
+        Setup(value.toString(), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetList(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+    it("should return default value if not castable", function () {
+        //Arrange
+        Setup(null, type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetList(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+});
+describe('GCR Get JSON Object Tests', function () {
+    var value = { x: "a", y: 1 };
+    var dflt = { a: "x", b: 3 };
+    var type = 122870001;
+    it("should retrieve the config value", function () {
+        //Arrange
+        Setup(JSON.stringify(value), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(value);
+        });
+    });
+    it("should return default value if not persisted", function () {
+        //Arrange
+        Setup(JSON.stringify(value), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+    it("should return default value if not castable", function () {
+        //Arrange
+        Setup(null, type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+});
+describe('GCR Get XML Object Tests', function () {
+    var value = { x: "a", y: 1 };
+    var dflt = { a: "x", b: 3 };
+    var type = 122870002;
+    it("should retrieve the config value", function () {
+        //Arrange
+        Setup(new xml2js_1.Builder().buildObject(value), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(new xml2js_1.Builder().buildObject(result)).to.be.equal(new xml2js_1.Builder().buildObject(value));
+        });
+    });
+    it("should return default value if not persisted", function () {
+        //Arrange
+        Setup(new xml2js_1.Builder().buildObject(value), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetObject(notPersistedKey, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
+        });
+    });
+    it("should return default value if not castable", function () {
+        //Arrange
+        Setup(new xml2js_1.Builder().buildObject(value).replace('<', ''), type);
+        //Act
+        var result = GenericConfigurationReader_1.default.GetObject(key, dflt);
+        //Assert
+        return result.then(function (result) {
+            chai_1.expect(result).to.be.deep.equal(dflt);
         });
     });
 });
