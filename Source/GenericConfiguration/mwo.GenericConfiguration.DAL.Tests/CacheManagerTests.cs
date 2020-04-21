@@ -2,7 +2,7 @@
 using System;
 using System.Threading;
 
-namespace mwo.GenericConfiguration.Samples.Tests
+namespace mwo.GenericConfiguration.DAL.Tests
 {
     [TestClass]
     public class CacheManagerTests

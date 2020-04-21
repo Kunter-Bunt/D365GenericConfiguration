@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mwo.GenericConfiguration.Plugins.Models.CRM
+namespace mwo.GenericConfiguration.DAL.Models.CRM
 {
 
 	[System.Runtime.Serialization.DataContractAttribute()]

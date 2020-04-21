@@ -7,8 +7,8 @@
     <ProjectGuid>{9A40191E-2871-4D5E-95BE-9424758685B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mwo.GenericConfiguration.Samples.Tests</RootNamespace>
-    <AssemblyName>mwo.GenericConfiguration.Samples.Tests</AssemblyName>
+    <RootNamespace>mwo.GenericConfiguration.DAL.Tests</RootNamespace>
+    <AssemblyName>mwo.GenericConfiguration.DAL.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -109,9 +109,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mwo.GenericConfiguration.Samples\mwo.GenericConfiguration.Samples.csproj">
-      <Project>{C4A01751-BD4E-4F51-838F-7AFC6537FD7A}</Project>
-      <Name>mwo.GenericConfiguration.Samples</Name>
+    <ProjectReference Include="..\mwo.GenericConfiguration.DAL\mwo.GenericConfiguration.DAL.csproj">
+      <Project>{c4a01751-bd4e-4f51-838f-7afc6537fd7a}</Project>
+      <Name>mwo.GenericConfiguration.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

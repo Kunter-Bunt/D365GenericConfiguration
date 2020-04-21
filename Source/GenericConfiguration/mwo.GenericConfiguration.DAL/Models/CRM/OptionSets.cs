@@ -8,10 +8,8 @@
 // Created via this command line: "C:\Users\marius.wodtke\AppData\Roaming\MscrmTools\XrmToolBox\Plugins\DLaB.EarlyBoundGenerator\crmsvcutil.exe" /url:"https://crm543863.api.crm.dynamics.com/XRMServices/2011/Organization.svc" /namespace:"CrmEarlyBound" /out:"C:\Users\marius.wodtke\source\repos\Kunter-Bunt\D365GenericConfiguration\Source\GenericConfiguration\mwo.GenericConfiguration.Plugins\Models\CRM\OptionSets.cs" /codecustomization:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomizeCodeDomService,DLaB.CrmSvcUtilExtensions" /codegenerationservice:"DLaB.CrmSvcUtilExtensions.OptionSet.CustomCodeGenerationService,DLaB.CrmSvcUtilExtensions" /codewriterfilter:"DLaB.CrmSvcUtilExtensions.OptionSet.CodeWriterFilterService,DLaB.CrmSvcUtilExtensions" /namingservice:"DLaB.CrmSvcUtilExtensions.NamingService,DLaB.CrmSvcUtilExtensions" /metadataproviderservice:"DLaB.CrmSvcUtilExtensions.BaseMetadataProviderService,DLaB.CrmSvcUtilExtensions" /username:"admin@CRM543863.onmicrosoft.com" /password:"**********" 
 //------------------------------------------------------------------------------
 
-namespace mwo.GenericConfiguration.Plugins.Models.CRM
+namespace mwo.GenericConfiguration.DAL.Models.CRM
 {
-
-
 	[System.Runtime.Serialization.DataContractAttribute()]
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9479")]
 	public enum mwo_GenericConfiguration_mwo_Type

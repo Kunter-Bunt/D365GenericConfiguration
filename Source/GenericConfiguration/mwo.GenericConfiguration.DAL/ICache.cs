@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace mwo.GenericConfiguration.Samples
+namespace mwo.GenericConfiguration.DAL
 {
     public interface ICache
     {

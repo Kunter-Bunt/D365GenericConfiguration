@@ -1,6 +1,7 @@
 ﻿using FakeXrmEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using mwo.GenericConfiguration.Plugins.Models.CRM;
+using Microsoft.Xrm.Sdk.Client;
+using mwo.GenericConfiguration.DAL.Models.CRM;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 
-namespace mwo.GenericConfiguration.Samples.Tests
+namespace mwo.GenericConfiguration.DAL.Tests
 {
     public class XmlSerializable
     {
@@ -175,7 +176,7 @@ namespace mwo.GenericConfiguration.Samples.Tests
         public void GCReader_GetJSONTest()
         {
             //Act
-            var result = Reader.GetObject<Dictionary<string,string>>(JSONKey, null);
+            var result = Reader.GetObject<Dictionary<string, string>>(JSONKey, null);
 
             //Assert
             Assert.AreEqual(JSONValue.Keys.First(), result.Keys.First());

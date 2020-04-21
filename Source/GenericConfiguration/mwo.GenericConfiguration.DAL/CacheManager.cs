@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Runtime.Caching;
 
-namespace mwo.GenericConfiguration.Samples
+namespace mwo.GenericConfiguration.DAL
 {
     public class CacheManager : ICache
     {

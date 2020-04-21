@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
-using mwo.GenericConfiguration.Plugins.Models.CRM;
+using mwo.GenericConfiguration.DAL.Models.CRM;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using System.Xml.Serialization;
 
-namespace mwo.GenericConfiguration.Samples
+namespace mwo.GenericConfiguration.DAL
 {
     /// <summary>
     /// Class will help interacting with the CRM Entity mwo_genericconfiguration which holds configuration entries for custom logic.
@@ -30,7 +30,16 @@ namespace mwo.GenericConfiguration.Samples
         private readonly Func<mwo_GenericConfiguration, mwo_GenericConfiguration> Selector = _ => new mwo_GenericConfiguration { Id = _.Id, mwo_Key = _.mwo_Key, mwo_Value = _.mwo_Value, mwo_TypeEnum = _.mwo_TypeEnum };
 
         /// <summary>
-        /// Default Constructor
+        /// COnstructor with IOrganizationService
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="trace"></param>
+        public GenericConfigurationReader(IOrganizationService service, ITracingService trace) : this(new CrmServiceContext(service), trace)
+        {
+        }
+
+        /// <summary>
+        /// Constructor with spercific Context
         /// </summary>
         /// <param name="context"></param>
         /// <param name="trace"></param>
@@ -80,7 +89,7 @@ namespace mwo.GenericConfiguration.Samples
         public bool? GetBool(string key, bool? defaultValue)
         {
             var config = Get(key);
-            var  success = bool.TryParse(config?.mwo_Value, out bool value);
+            var success = bool.TryParse(config?.mwo_Value, out bool value);
             return success ? value : defaultValue;
         }
 

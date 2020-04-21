@@ -7,8 +7,8 @@
     <ProjectGuid>{C4A01751-BD4E-4F51-838F-7AFC6537FD7A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mwo.GenericConfiguration.Samples</RootNamespace>
-    <AssemblyName>mwo.GenericConfiguration.Samples</AssemblyName>
+    <RootNamespace>mwo.GenericConfiguration.DAL</RootNamespace>
+    <AssemblyName>mwo.GenericConfiguration.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
