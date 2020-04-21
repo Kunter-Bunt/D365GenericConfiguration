@@ -7,7 +7,7 @@
         {
           "uniquename": "mwo_/GenericConfigurationReader.js",
           "file": "mwo_\\GenericConfigurationReader.js",
-          "description": ""
+          "description": "\"A DAL resource to query the entity mwo_genericconfiguration. Call GenericConfigurationReader.XXX (GetString, GetBool, GetNumber, GetList, GetObject) with 3 arguments: First is the mwo_key as string. Second is the dafault value if the key is not present or not parseable. Third is something that implements the Storage Interface, namely window.sessionStorage or window.localStorage. These are used as cache, if null/undefined is passed no caching will happen. Be careful with localStorage, this might limit your ability to configure the system on the fly as the users wont catch the changes. The functions return a promise, so correct usage is in conjuction with a then. Sample usage: GenericConfigurationReader.GetString('myKey', 'myDefaultString', window.sessionStorage).then((res) => console.log(res));"
         }
       ]
     }
