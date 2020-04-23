@@ -1,7 +1,7 @@
 # D365GenericConfiguration
 This project provides an easy to use configuration entity for Dynamics 365 Customer Engagement.  
 It is designed to be a quick way of allowing simpler configurations for custom extensions that do not break the barrier to justify creating a custom configuration entity.
-Yet it provides an implementation of quality of live features and is well covered with tests, making it more robust than most configuration entities in the wild.
+Yet it provides an implementation with quality of live features and is well covered with tests, making it more robust than most configuration entities in the wild.
 
 ## Features
 - A configuration entity that holds key, value pairs.
@@ -15,7 +15,7 @@ Yet it provides an implementation of quality of live features and is well covere
 - A custom workflow activity for retrieving a value by key.
 
 ## Usage
-Check the wiki on how to use the entity, roles and DALs.
+Check the [wiki](https://github.com/Kunter-Bunt/D365GenericConfiguration/wiki) on how to use the entity, roles and DALs.
 
 ## License
 **MIT**  
